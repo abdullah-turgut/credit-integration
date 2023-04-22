@@ -1,5 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { AiOutlineUser, AiOutlineLock } from 'react-icons/ai';
+import axios from 'axios';
 
 export default function LoginForm() {
   const {
@@ -7,7 +8,25 @@ export default function LoginForm() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = async (data) => {
+    axios
+      .post('http://localhost:1337/api/auth/local', data, {
+        headers: { 'Content-Type': 'application/json' },
+      })
+      .then((res) => {
+        sessionStorage.setItem('token', res.data.jwt);
+        return res.data.jwt;
+      })
+      .then((token) =>
+        axios
+          .get('http://localhost:1337/api/users/me?populate=*', {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then((res) => console.log(res.data))
+      );
+  };
   console.log(errors);
 
   return (
