@@ -8,7 +8,6 @@ import { MainContext } from './contexts/MainContext';
 function App() {
   const navigate = useNavigate();
   const [user, setUser] = useState(JSON.parse(sessionStorage.getItem('user')));
-  const data = { user, setUser };
 
   useEffect(() => {
     if (!user) {
@@ -23,6 +22,8 @@ function App() {
       }
     }
   }, []);
+
+  const data = { user, setUser };
 
   return (
     <MainContext.Provider value={data}>
