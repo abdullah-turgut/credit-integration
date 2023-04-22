@@ -10,18 +10,17 @@ function App() {
   const [user, setUser] = useState(JSON.parse(sessionStorage.getItem('user')));
 
   useEffect(() => {
+    console.log(user);
     if (!user) {
       navigate('/login');
     } else {
       if (user.role.type === 'superadmin') {
-        setUser(user);
         navigate('/admin');
       } else if (user.role.type === 'analyst') {
-        setUser(user);
         navigate('/analyst');
       }
     }
-  }, []);
+  }, [user]);
 
   const data = { user, setUser };
 
