@@ -1,8 +1,10 @@
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { AiOutlineUser, AiOutlineLock } from 'react-icons/ai';
 import axios from 'axios';
 
 export default function LoginForm() {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -24,7 +26,14 @@ export default function LoginForm() {
               Authorization: `Bearer ${token}`,
             },
           })
-          .then((res) => console.log(res.data))
+          .then((res) => {
+            sessionStorage.setItem('user', JSON.stringify(res.data));
+            if (res.data.role.type === 'superadmin') {
+              navigate('/admin');
+            } else if (res.data.role.type === 'analyst') {
+              navigate('/analyst');
+            }
+          })
       );
   };
   console.log(errors);
