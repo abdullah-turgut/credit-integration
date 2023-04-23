@@ -20,7 +20,7 @@ function App() {
         navigate('/analyst');
       }
     }
-  }, [user]);
+  }, [user]); //eslint-disable-line
 
   const data = { user, setUser };
 
