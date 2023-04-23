@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { AiOutlineUser, AiOutlineLock } from 'react-icons/ai';
 import axios from 'axios';
 import { MainContext, useContext } from '../contexts/MainContext';
+import { ToastContainer, toast } from 'react-toastify';
 
 export default function LoginForm() {
   const { setUser } = useContext(MainContext);
@@ -29,13 +30,25 @@ export default function LoginForm() {
             },
           })
           .then((res) => {
-            sessionStorage.setItem('user', JSON.stringify(res.data));
-            setUser(res.data);
-            if (res.data.role.type === 'superadmin') {
-              navigate('/admin');
-            } else if (res.data.role.type === 'analyst') {
-              navigate('/analyst');
-            }
+            toast.success('Başarıyla giriş yapıldı!', {
+              position: 'top-right',
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: 'light',
+            });
+            setTimeout(() => {
+              sessionStorage.setItem('user', JSON.stringify(res.data));
+              setUser(res.data);
+              if (res.data.role.type === 'superadmin') {
+                navigate('/admin');
+              } else if (res.data.role.type === 'analyst') {
+                navigate('/analyst');
+              }
+            }, 1500);
           })
       );
   };
@@ -44,9 +57,9 @@ export default function LoginForm() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col gap-y-20 border p-10 rounded-2xl bg-slate-100"
+      className="flex flex-col gap-y-20 border p-10 rounded-2xl bg-slate-100 drop-shadow-2xl"
     >
-      <h3 className="text-center text-5xl font-bold">Login</h3>
+      <h3 className="text-center text-5xl font-bold animate-bounce">Login</h3>
       <div className="flex flex-col gap-y-6">
         <div className="relative">
           <input
