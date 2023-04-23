@@ -11,9 +11,9 @@ import 'react-toastify/dist/ReactToastify.css';
 function App() {
   const navigate = useNavigate();
   const [user, setUser] = useState(JSON.parse(sessionStorage.getItem('user')));
+  const [rawData, setRawData] = useState([]);
 
   useEffect(() => {
-    console.log(user);
     if (!user) {
       navigate('/login');
     } else {
@@ -25,7 +25,7 @@ function App() {
     }
   }, [user]); //eslint-disable-line
 
-  const data = { user, setUser };
+  const data = { user, setUser, rawData, setRawData };
 
   return (
     <MainContext.Provider value={data}>
