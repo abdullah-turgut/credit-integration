@@ -86,7 +86,7 @@ export default function DataGrid() {
             size={30}
             className="cursor-pointer hover:scale-110 text-sky-600"
           />
-          <p>PipeDrive'a Gönder</p>
+          <p>PipeDrive Gönder</p>
         </div>
       </div>
     </div>
