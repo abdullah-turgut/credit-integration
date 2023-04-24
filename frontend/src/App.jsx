@@ -12,6 +12,7 @@ function App() {
   const navigate = useNavigate();
   const [user, setUser] = useState(JSON.parse(sessionStorage.getItem('user')));
   const [typeformData, setTypeFormData] = useState([]);
+  const [formattedData, setFormattedData] = useState([]);
 
   useEffect(() => {
     if (!user) {
@@ -25,7 +26,14 @@ function App() {
     }
   }, [user]); //eslint-disable-line
 
-  const data = { user, setUser, typeformData, setTypeFormData };
+  const data = {
+    user,
+    setUser,
+    typeformData,
+    setTypeFormData,
+    formattedData,
+    setFormattedData,
+  };
 
   return (
     <MainContext.Provider value={data}>
