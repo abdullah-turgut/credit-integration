@@ -59,16 +59,14 @@ export default function DataGrid() {
 
   return (
     <>
-      <Table striped={true} hoverable={true}>
+      <Table striped={true}>
         <Table.Head>
           <Table.HeadCell>İşe Başlama Yılı</Table.HeadCell>
           <Table.HeadCell>Eğitim Düzeyi</Table.HeadCell>
           <Table.HeadCell>Sektör</Table.HeadCell>
           <Table.HeadCell>Meslek</Table.HeadCell>
           <Table.HeadCell>Kredi Durumu</Table.HeadCell>
-          <Table.HeadCell>
-            <span className="sr-only">Edit</span>
-          </Table.HeadCell>
+          <Table.HeadCell>GÖRÜNTÜLE</Table.HeadCell>
         </Table.Head>
         <Table.Body className="divide-y">{entriesEl}</Table.Body>
       </Table>
