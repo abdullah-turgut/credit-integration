@@ -1,3 +1,5 @@
+import { nanoid } from 'nanoid';
+
 function formatData(arr) {
   const options = {
     year: 'numeric',
@@ -6,6 +8,7 @@ function formatData(arr) {
     .map((entry) => entry.answers)
     .map((answer) => {
       return {
+        entryId: nanoid(),
         startYear: Math.trunc(
           new Date(answer[0].date).toLocaleDateString('tr', options)
         ),
