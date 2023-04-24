@@ -34,6 +34,11 @@ export default function DataGrid() {
         <Table.Cell>{entry.field}</Table.Cell>
         <Table.Cell>{entry.job}</Table.Cell>
         <Table.Cell>
+          {entry.startYear >= 2015 && entry.education === 'Lisans'
+            ? 'Olumlu'
+            : 'Ret'}
+        </Table.Cell>
+        <Table.Cell>
           <FcSearch className="cursor-pointer hover:scale-125" />
         </Table.Cell>
       </Table.Row>
@@ -58,6 +63,7 @@ export default function DataGrid() {
           <Table.HeadCell>Eğitim Düzeyi</Table.HeadCell>
           <Table.HeadCell>Sektör</Table.HeadCell>
           <Table.HeadCell>Meslek</Table.HeadCell>
+          <Table.HeadCell>Kredi Durumu</Table.HeadCell>
           <Table.HeadCell>
             <span className="sr-only">Edit</span>
           </Table.HeadCell>
