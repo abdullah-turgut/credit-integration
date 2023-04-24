@@ -79,7 +79,7 @@ export default function DataGrid() {
             size={30}
             className="cursor-pointer hover:scale-110 text-emerald-600"
           />
-          <p>Günlük Data</p>
+          <p>TypeForm Data</p>
         </div>
         <div className="flex flex-col items-center gap-y-4">
           <FaPaperPlane
