@@ -4,6 +4,7 @@ import axios from 'axios';
 import { formatData } from '../helpers/dataFormat';
 import { Table, Spinner } from 'flowbite-react';
 import { FcSearch } from 'react-icons/fc';
+import { FaSyncAlt, FaPaperPlane } from 'react-icons/fa';
 
 export default function DataGrid() {
   const [isLoading, setLoading] = useState(false);
@@ -35,9 +36,9 @@ export default function DataGrid() {
         <Table.Cell>{entry.job}</Table.Cell>
         <Table.Cell>
           {entry.startYear >= 2015 && entry.education === 'Lisans' ? (
-            <span className="font-medium text-green-500">Olumlu</span>
+            <span className="font-medium text-emerald-500">Olumlu</span>
           ) : (
-            <span className="font-medium text-red-500">Ret</span>
+            <span className="font-medium text-rose-500">Ret</span>
           )}
         </Table.Cell>
         <Table.Cell>
@@ -58,18 +59,36 @@ export default function DataGrid() {
   }
 
   return (
-    <>
-      <Table striped={true}>
-        <Table.Head>
-          <Table.HeadCell>İşe Başlama Yılı</Table.HeadCell>
-          <Table.HeadCell>Eğitim Düzeyi</Table.HeadCell>
-          <Table.HeadCell>Sektör</Table.HeadCell>
-          <Table.HeadCell>Meslek</Table.HeadCell>
-          <Table.HeadCell>Kredi Durumu</Table.HeadCell>
-          <Table.HeadCell>GÖRÜNTÜLE</Table.HeadCell>
-        </Table.Head>
-        <Table.Body className="divide-y">{entriesEl}</Table.Body>
-      </Table>
-    </>
+    <div className="relative h-screen">
+      <div className="overflow-y-scroll h-5/6 bg-slate-300 ">
+        <Table striped={true}>
+          <Table.Head>
+            <Table.HeadCell>İşe Başlama Yılı</Table.HeadCell>
+            <Table.HeadCell>Eğitim Düzeyi</Table.HeadCell>
+            <Table.HeadCell>Sektör</Table.HeadCell>
+            <Table.HeadCell>Meslek</Table.HeadCell>
+            <Table.HeadCell>Kredi Durumu</Table.HeadCell>
+            <Table.HeadCell>GÖRÜNTÜLE</Table.HeadCell>
+          </Table.Head>
+          <Table.Body className="divide-y">{entriesEl}</Table.Body>
+        </Table>
+      </div>
+      <div className="absolute z-10 flex justify-center items-center gap-x-20 w-full shadow-inner  shadow-slate-400 h-1/6 bottom-0 font-semibold">
+        <div className="flex flex-col items-center gap-y-4">
+          <FaSyncAlt
+            size={30}
+            className="cursor-pointer hover:scale-110 text-emerald-600"
+          />
+          <p>Günlük Data</p>
+        </div>
+        <div className="flex flex-col items-center gap-y-4">
+          <FaPaperPlane
+            size={30}
+            className="cursor-pointer hover:scale-110 text-sky-600"
+          />
+          <p>PipeDrive'a Gönder</p>
+        </div>
+      </div>
+    </div>
   );
 }
