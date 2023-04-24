@@ -5,6 +5,7 @@ router.get('/responses', (req, res) => {
   const formId = 'X8EgMpWd';
   const accessToken =
     'tfp_BdF92AGMJtpnSjw95c3gDmGa6KbWvS6DYJE6HtKDGjY5_3paaWFAe864boV';
+  const date = new Date().toISOString().split('T')[0] + 'T00%3A00%3A00';
 
   const url = `https://api.typeform.com/forms/${formId}/responses`;
 

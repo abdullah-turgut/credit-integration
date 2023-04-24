@@ -48,7 +48,19 @@ export default function DataGrid() {
     );
   });
 
-  console.log(entriesEl);
+  function sendToPipeDrive(arr) {
+    arr
+      .filter((entry) => entry.startYear >= 2015)
+      .map((entry) => {
+        axios
+          .post(
+            'https://api.pipedrive.com/v1/deals?api_token=b7be953a837f6b7edcdb056873ba3d43180f58ef',
+            { title: entry.job }
+          )
+          .then((res) => console.log(res.data))
+          .catch((err) => console.log(err));
+      });
+  }
 
   if (!isLoading) {
     return (
@@ -85,6 +97,7 @@ export default function DataGrid() {
           <FaPaperPlane
             size={30}
             className="cursor-pointer hover:scale-110 text-sky-600"
+            onClick={() => sendToPipeDrive(formattedData)}
           />
           <p>PipeDrive Gönder</p>
         </div>
