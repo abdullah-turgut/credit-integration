@@ -57,7 +57,7 @@ export default function LoginForm() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col gap-y-20 border p-10 rounded-2xl bg-slate-100 drop-shadow-2xl"
+      className="flex flex-col gap-y-20 border px-10 py-14 rounded-2xl bg-slate-100 drop-shadow-2xl"
     >
       <h3 className="text-center text-5xl font-bold animate-bounce">Login</h3>
       <div className="flex flex-col gap-y-6">
@@ -70,7 +70,7 @@ export default function LoginForm() {
           />
           <AiOutlineUser
             size={20}
-            className="text-gray-400 absolute top-1/2 -translate-y-1/2"
+            className="text-gray-500 absolute top-1/2 -translate-y-1/2"
           />
         </div>
         <div className="relative">
@@ -82,7 +82,7 @@ export default function LoginForm() {
           />
           <AiOutlineLock
             size={20}
-            className="text-gray-400 absolute top-1/2 -translate-y-1/2"
+            className="text-gray-500 absolute top-1/2 -translate-y-1/2"
           />
         </div>
       </div>
