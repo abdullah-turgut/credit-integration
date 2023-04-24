@@ -34,9 +34,11 @@ export default function DataGrid() {
         <Table.Cell>{entry.field}</Table.Cell>
         <Table.Cell>{entry.job}</Table.Cell>
         <Table.Cell>
-          {entry.startYear >= 2015 && entry.education === 'Lisans'
-            ? 'Olumlu'
-            : 'Ret'}
+          {entry.startYear >= 2015 && entry.education === 'Lisans' ? (
+            <span className="font-medium text-green-500">Olumlu</span>
+          ) : (
+            <span className="font-medium text-red-500">Ret</span>
+          )}
         </Table.Cell>
         <Table.Cell>
           <FcSearch className="cursor-pointer hover:scale-125" />
