@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { MainContext, useContext } from '../contexts/MainContext';
 import axios from 'axios';
 import { formatData } from '../helpers/dataFormat';
+import { successRate } from '../helpers/calculateScore';
 import { Table, Spinner } from 'flowbite-react';
 import { FcSearch } from 'react-icons/fc';
 import { FaSyncAlt, FaPaperPlane } from 'react-icons/fa';
@@ -17,23 +18,48 @@ export default function DataGrid() {
   } = useContext(MainContext);
 
   useEffect(() => {
-    axios.get('http://localhost:9000/api/responses').then((res) => {
-      setTypeFormData(res.data);
-      setFormattedData(formatData(typeformData));
-      setLoading(true);
-    });
-  }, [isLoading]); //eslint-disable-line
+    axios
+      .get('http://localhost:1337/api/infos', {
+        headers: {
+          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjgyNzczNTM0LCJleHAiOjE2ODUzNjU1MzR9.8XvpY1iNJXCwCB4-UTzgdjOL8av4i8aEWeiqzqz0GzU`,
+        },
+      })
+      .then((res) => {
+        let data = res.data.data.map((item) => item.attributes.data);
+        let x = [];
+        for (let i = 0; i < data.length; i++) {
+          x.push(...data[i]);
+        }
+        setTypeFormData(x);
+        setFormattedData(formatData(typeformData));
+        setLoading(true);
+      });
+  }, [isLoading]);
 
-  const entriesEl = formattedData.map((entry) => {
+  // useEffect(() => {
+  //   axios.get('http://localhost:9000/api/responses').then((res) => {
+  //     setTypeFormData(res.data);
+  //     setFormattedData(formatData(typeformData));
+  //     setLoading(true);
+  //   });
+  // }, [isLoading]); //eslint-disable-line
+
+  const entriesEl = formattedData.map((entry, i) => {
     return (
       <Table.Row
         className="bg-white dark:border-gray-700 dark:bg-gray-800"
         key={entry.entryId}
       >
+        <Table.Cell className="">{i + 1}</Table.Cell>
+        <Table.Cell className="">{entry.username}</Table.Cell>
         <Table.Cell className="">{entry.startYear}</Table.Cell>
         <Table.Cell>{entry.education}</Table.Cell>
         <Table.Cell>{entry.field}</Table.Cell>
         <Table.Cell>{entry.job}</Table.Cell>
+        <Table.Cell>{entry.creditScore}</Table.Cell>
+        <Table.Cell>
+          {successRate(entry.PS, entry.SS, entry.startYear)}
+        </Table.Cell>
         <Table.Cell>
           {entry.startYear >= 2015 && entry.education === 'Lisans' ? (
             <span className="font-medium text-emerald-500">Olumlu</span>
@@ -75,10 +101,14 @@ export default function DataGrid() {
       <div className="overflow-y-scroll h-5/6 bg-slate-300 ">
         <Table striped={true}>
           <Table.Head>
+            <Table.HeadCell>No</Table.HeadCell>
+            <Table.HeadCell>İsim Soyisim</Table.HeadCell>
             <Table.HeadCell>İşe Başlama Yılı</Table.HeadCell>
             <Table.HeadCell>Eğitim Düzeyi</Table.HeadCell>
             <Table.HeadCell>Sektör</Table.HeadCell>
             <Table.HeadCell>Meslek</Table.HeadCell>
+            <Table.HeadCell>Kredi Puanı</Table.HeadCell>
+            <Table.HeadCell>Risk Düzeyi</Table.HeadCell>
             <Table.HeadCell>Kredi Durumu</Table.HeadCell>
             <Table.HeadCell>GÖRÜNTÜLE</Table.HeadCell>
           </Table.Head>
