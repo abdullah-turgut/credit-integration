@@ -29,9 +29,7 @@ export default function DataGrid() {
         },
       })
       .then((res) => {
-        res.data.data.map((item) =>
-          setDat((preVal) => [...preVal, item.attributes.entry_id])
-        );
+        res.data.data.map((item) => setDat((preVal) => [...preVal, item]));
       });
   }, []);
 
