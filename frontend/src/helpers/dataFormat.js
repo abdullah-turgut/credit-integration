@@ -11,10 +11,11 @@ function formatData(arr) {
       startYear: item['Çalışmaya ilk başladığın yıl nedir?'],
       PS: item['PS'],
       SS: item['SectorScore'],
-      creditScore:
+      creditScore: (
         item['PS'] * 0.4 +
         item['SectorScore'] * 0.5 -
-        (2023 - Number(item['Çalışmaya ilk başladığın yıl nedir?'])) * 0.1,
+        (2023 - Number(item['Çalışmaya ilk başladığın yıl nedir?'])) * 0.1
+      ).toFixed(1),
     };
   });
 }

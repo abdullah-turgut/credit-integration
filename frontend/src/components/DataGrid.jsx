@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { MainContext, useContext } from '../contexts/MainContext';
 import axios from 'axios';
 import { formatData } from '../helpers/dataFormat';
-import { successRate } from '../helpers/calculateScore';
+import { successRate, preferOrder } from '../helpers/calculateScore';
 import { Table, Spinner } from 'flowbite-react';
 import { FcSearch } from 'react-icons/fc';
 import { FaSyncAlt, FaPaperPlane } from 'react-icons/fa';
@@ -61,10 +61,12 @@ export default function DataGrid() {
           {successRate(entry.PS, entry.SS, entry.startYear)}
         </Table.Cell>
         <Table.Cell>
-          {entry.startYear >= 2015 && entry.education === 'Lisans' ? (
-            <span className="font-medium text-emerald-500">Olumlu</span>
-          ) : (
-            <span className="font-medium text-rose-500">Ret</span>
+          {preferOrder(
+            entry.field,
+            entry.job,
+            entry.PS,
+            entry.SS,
+            entry.startYear
           )}
         </Table.Cell>
         <Table.Cell>
@@ -109,7 +111,7 @@ export default function DataGrid() {
             <Table.HeadCell>Meslek</Table.HeadCell>
             <Table.HeadCell>Kredi Puanı</Table.HeadCell>
             <Table.HeadCell>Risk Düzeyi</Table.HeadCell>
-            <Table.HeadCell>Kredi Durumu</Table.HeadCell>
+            <Table.HeadCell>Tercih Sırası</Table.HeadCell>
             <Table.HeadCell>GÖRÜNTÜLE</Table.HeadCell>
           </Table.Head>
           <Table.Body className="divide-y">{entriesEl}</Table.Body>
