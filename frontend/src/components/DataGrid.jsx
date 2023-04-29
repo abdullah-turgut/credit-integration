@@ -6,6 +6,7 @@ import { successRate, preferOrder } from '../helpers/calculateScore';
 import { Table, Spinner } from 'flowbite-react';
 import { FcSearch } from 'react-icons/fc';
 import { FaSyncAlt, FaPaperPlane } from 'react-icons/fa';
+import { enDat } from '../helpers/data';
 
 export default function DataGrid() {
   const [isLoading, setLoading] = useState(false);
@@ -16,6 +17,13 @@ export default function DataGrid() {
     setFormattedData,
     user,
   } = useContext(MainContext);
+
+  useEffect(() => {
+    enDat.map((item) => {
+      let data = {};
+    });
+    axios.post('http://localhost:1337/api/infos');
+  }, []);
 
   useEffect(() => {
     axios
