@@ -17,13 +17,64 @@ export default function DataGrid() {
     setFormattedData,
     user,
   } = useContext(MainContext);
+  const [dat, setDat] = useState([]);
+  const [dat1, setDat1] = useState([]);
 
   useEffect(() => {
-    enDat.map((item) => {
-      let data = {};
-    });
-    axios.post('http://localhost:1337/api/infos');
+    axios
+      .get('http://localhost:1337/api/entries', {
+        headers: {
+          Authorization:
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjgyNzczNTM0LCJleHAiOjE2ODUzNjU1MzR9.8XvpY1iNJXCwCB4-UTzgdjOL8av4i8aEWeiqzqz0GzU',
+        },
+      })
+      .then((res) => {
+        res.data.data.map((item) =>
+          setDat((preVal) => [...preVal, item.attributes.entry_id])
+        );
+      });
   }, []);
+
+  console.log(dat);
+
+  // useEffect(() => {
+  //   enDat.map((item) => {
+  //     let data = {
+  //       data: {
+  //         entry_id: item['#'],
+  //         name_surname: item['İsim Soyisim'],
+  //         sector: item['Sektör'],
+  //         sectorScore: item['SectorScore'],
+  //         credit_type: item['Hangi Kredi Ürünüyle İlgileniyorsun'],
+  //         sex: item['Cinsiyet'],
+  //         email: item['E-Posta'],
+  //         source: item['Kaynak'],
+  //         tel: item['Telefon'],
+  //         age: item['Kaç yaşındasın?'],
+  //         startYear: item['Çalışmaya ilk başladığın yıl nedir?'],
+  //         job: item['Hangi Pozisyonda Çalışıyorsun?'],
+  //         PS: item['PS'],
+  //         education: item['Son Mezuniyet'],
+  //         university: item['Üniversite'],
+  //         avg: Boolean(item["Mezuniyet Ortalaman 3.00'dan yüksek mi?"]),
+  //         startDate: item['Start Date (UTC)'],
+  //         submitDate: item['Submit Date (UTC)'],
+  //         network_id: item['Network ID'],
+  //         conditions: Boolean(item['Ön Şartları Okudum']),
+  //       },
+  //     };
+  //     if (!dat.includes(item['#'])) {
+  //       axios
+  //         .post('http://localhost:1337/api/entries', data, {
+  //           headers: {
+  //             Authorization:
+  //               'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjgyNzczNTM0LCJleHAiOjE2ODUzNjU1MzR9.8XvpY1iNJXCwCB4-UTzgdjOL8av4i8aEWeiqzqz0GzU',
+  //           },
+  //         })
+  //         .then((res) => res.data);
+  //     }
+  //   });
+  // }, []);
 
   useEffect(() => {
     axios
