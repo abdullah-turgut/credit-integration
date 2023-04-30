@@ -22,56 +22,61 @@ export default function DataGrid() {
 
   useEffect(() => {
     axios
-      .get('http://localhost:1337/api/entries', {
+      .get('http://localhost:1337/api/entries?sort=entry_id', {
         headers: {
           Authorization:
             'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjgyNzczNTM0LCJleHAiOjE2ODUzNjU1MzR9.8XvpY1iNJXCwCB4-UTzgdjOL8av4i8aEWeiqzqz0GzU',
         },
       })
       .then((res) => {
-        res.data.data.map((item) => setDat((preVal) => [...preVal, item]));
+        res.data.data.map((item) =>
+          setDat((preVal) => [...preVal, item.attributes])
+        );
       });
   }, []);
 
   console.log(dat);
 
   // useEffect(() => {
-  //   enDat.map((item) => {
-  //     let data = {
-  //       data: {
-  //         entry_id: item['#'],
-  //         name_surname: item['İsim Soyisim'],
-  //         sector: item['Sektör'],
-  //         sectorScore: item['SectorScore'],
-  //         credit_type: item['Hangi Kredi Ürünüyle İlgileniyorsun'],
-  //         sex: item['Cinsiyet'],
-  //         email: item['E-Posta'],
-  //         source: item['Kaynak'],
-  //         tel: item['Telefon'],
-  //         age: item['Kaç yaşındasın?'],
-  //         startYear: item['Çalışmaya ilk başladığın yıl nedir?'],
-  //         job: item['Hangi Pozisyonda Çalışıyorsun?'],
-  //         PS: item['PS'],
-  //         education: item['Son Mezuniyet'],
-  //         university: item['Üniversite'],
-  //         avg: Boolean(item["Mezuniyet Ortalaman 3.00'dan yüksek mi?"]),
-  //         startDate: item['Start Date (UTC)'],
-  //         submitDate: item['Submit Date (UTC)'],
-  //         network_id: item['Network ID'],
-  //         conditions: Boolean(item['Ön Şartları Okudum']),
-  //       },
-  //     };
-  //     if (!dat.includes(item['#'])) {
-  //       axios
-  //         .post('http://localhost:1337/api/entries', data, {
-  //           headers: {
-  //             Authorization:
-  //               'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjgyNzczNTM0LCJleHAiOjE2ODUzNjU1MzR9.8XvpY1iNJXCwCB4-UTzgdjOL8av4i8aEWeiqzqz0GzU',
-  //           },
-  //         })
-  //         .then((res) => res.data);
-  //     }
-  //   });
+  //   enDat
+  //     .sort((a, b) => (a['#'] > b['#'] ? 1 : b['#'] > a['#'] ? -1 : 0))
+  //     .map((item, i) => {
+  //       let data = {
+  //         data: {
+  //           entry_id: item['#'],
+  //           name_surname: item['İsim Soyisim'],
+  //           field: item['Sektör'],
+  //           sectorScore: item['SectorScore'],
+  //           credit_type: item['Hangi Kredi Ürünüyle İlgileniyorsun'],
+  //           sex: item['Cinsiyet'],
+  //           email: item['E-Posta'],
+  //           source: item['Kaynak'],
+  //           tel: item['Telefon'],
+  //           age: item['Kaç yaşındasın?'],
+  //           startYear: item['Çalışmaya ilk başladığın yıl nedir?'],
+  //           job: item['Hangi Pozisyonda Çalışıyorsun?'],
+  //           PS: item['PS'],
+  //           education: item['Son Mezuniyet'],
+  //           university: item['Üniversite'],
+  //           avg: Boolean(item["Mezuniyet Ortalaman 3.00'dan yüksek mi?"]),
+  //           startDate: item['Start Date (UTC)'],
+  //           submitDate: item['Submit Date (UTC)'],
+  //           network_id: item['Network ID'],
+  //           conditions: Boolean(item['Ön Şartları Okudum']),
+  //         },
+  //       };
+
+  //       if (i >= 2500 && i <= 3000) {
+  //         axios
+  //           .post(`http://localhost:1337/api/entries`, data, {
+  //             headers: {
+  //               Authorization:
+  //                 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjgyNzczNTM0LCJleHAiOjE2ODUzNjU1MzR9.8XvpY1iNJXCwCB4-UTzgdjOL8av4i8aEWeiqzqz0GzU',
+  //             },
+  //           })
+  //           .then((res) => res.data);
+  //       }
+  //     });
   // }, []);
 
   useEffect(() => {
@@ -107,9 +112,9 @@ export default function DataGrid() {
         className="bg-white dark:border-gray-700 dark:bg-gray-800"
         key={entry.entryId}
       >
-        <Table.Cell className="">{i + 1}</Table.Cell>
-        <Table.Cell className="">{entry.username}</Table.Cell>
-        <Table.Cell className="">{entry.startYear}</Table.Cell>
+        <Table.Cell>{i + 1}</Table.Cell>
+        <Table.Cell>{entry.username}</Table.Cell>
+        <Table.Cell>{entry.startYear}</Table.Cell>
         <Table.Cell>{entry.education}</Table.Cell>
         <Table.Cell>{entry.field}</Table.Cell>
         <Table.Cell>{entry.job}</Table.Cell>

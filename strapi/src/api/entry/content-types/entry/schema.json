@@ -4,7 +4,7 @@
   "info": {
     "singularName": "entry",
     "pluralName": "entries",
-    "displayName": "entry"
+    "displayName": "Entry"
   },
   "options": {
     "draftAndPublish": true
@@ -13,23 +13,20 @@
   "attributes": {
     "entry_id": {
       "type": "string",
-      "unique": true,
-      "required": true
+      "required": true,
+      "unique": true
     },
     "name_surname": {
       "type": "string",
-      "unique": false,
       "required": true
     },
-    "sector": {
+    "field": {
       "type": "string",
-      "unique": false,
       "required": true
     },
     "sectorScore": {
-      "type": "integer",
-      "unique": false,
-      "required": true
+      "required": true,
+      "type": "integer"
     },
     "credit_type": {
       "type": "string",
@@ -40,7 +37,7 @@
       "required": true
     },
     "email": {
-      "type": "email",
+      "type": "string",
       "required": true
     },
     "source": {
@@ -52,8 +49,8 @@
       "required": true
     },
     "age": {
-      "type": "integer",
-      "required": true
+      "required": true,
+      "type": "integer"
     },
     "startYear": {
       "type": "integer",
@@ -64,7 +61,6 @@
       "required": true
     },
     "PS": {
-      "required": true,
       "type": "integer"
     },
     "education": {
