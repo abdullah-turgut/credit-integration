@@ -5,6 +5,7 @@ import Analyst from './pages/Analyst';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { MainContext } from './contexts/MainContext';
 import { ToastContainer } from 'react-toastify';
+import EditModal from './components/EditModal';
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -51,6 +52,7 @@ function App() {
       />
       {/* Same as */}
       <ToastContainer />
+      <EditModal />
       <Routes>
         <Route exact path="/" />
         <Route exact path="/login" element={<Login />} />
