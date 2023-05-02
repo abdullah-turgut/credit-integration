@@ -118,6 +118,10 @@ export default function DataGrid() {
   //   });
   // }, [isLoading]); //eslint-disable-line
 
+  function openModal() {
+    document.querySelector('#edit-modal').classList.remove('hidden');
+  }
+
   const entriesEl = formattedData.map((entry, i) => {
     return (
       <Table.Row
@@ -136,7 +140,10 @@ export default function DataGrid() {
           {preferOrder(entry.field, entry.job, entry.creditScore)}
         </Table.Cell>
         <Table.Cell>
-          <FcSearch className="cursor-pointer hover:scale-125" />
+          <FcSearch
+            className="cursor-pointer hover:scale-125"
+            onClick={openModal}
+          />
         </Table.Cell>
       </Table.Row>
     );
