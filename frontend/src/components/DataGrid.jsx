@@ -18,7 +18,6 @@ export default function DataGrid() {
     user,
   } = useContext(MainContext);
   const [dat, setDat] = useState([]);
-  const [dat1, setDat1] = useState([]);
 
   useEffect(() => {
     axios
@@ -30,12 +29,12 @@ export default function DataGrid() {
       })
       .then((res) => {
         res.data.data.map((item) =>
-          setDat((preVal) => [...preVal, item.attributes])
+          setDat((preVal) => [...preVal, { ...item.attributes, id: item.id }])
         );
       });
   }, []);
 
-  console.log(dat);
+  console.log(formatData(dat));
 
   // useEffect(() => {
   //   enDat
@@ -93,7 +92,7 @@ export default function DataGrid() {
           x.push(...data[i]);
         }
         setTypeFormData(x);
-        setFormattedData(formatData(typeformData));
+        setFormattedData(formatData(dat));
         setLoading(true);
       });
   }, [isLoading]);
@@ -110,26 +109,18 @@ export default function DataGrid() {
     return (
       <Table.Row
         className="bg-white dark:border-gray-700 dark:bg-gray-800"
-        key={entry.entryId}
+        key={entry.id}
       >
         <Table.Cell>{i + 1}</Table.Cell>
-        <Table.Cell>{entry.username}</Table.Cell>
+        <Table.Cell>{entry.name_surname}</Table.Cell>
         <Table.Cell>{entry.startYear}</Table.Cell>
         <Table.Cell>{entry.education}</Table.Cell>
         <Table.Cell>{entry.field}</Table.Cell>
         <Table.Cell>{entry.job}</Table.Cell>
         <Table.Cell>{entry.creditScore}</Table.Cell>
+        <Table.Cell>{successRate(entry.creditScore)}</Table.Cell>
         <Table.Cell>
-          {successRate(entry.PS, entry.SS, entry.startYear)}
-        </Table.Cell>
-        <Table.Cell>
-          {preferOrder(
-            entry.field,
-            entry.job,
-            entry.PS,
-            entry.SS,
-            entry.startYear
-          )}
+          {preferOrder(entry.field, entry.job, entry.creditScore)}
         </Table.Cell>
         <Table.Cell>
           <FcSearch className="cursor-pointer hover:scale-125" />

@@ -1,7 +1,4 @@
-function successRate(PS, SS, ES) {
-  let year = new Date().getFullYear();
-  let score = PS * 0.4 + SS * 0.5 - Number(year - ES) * 0.1;
-
+function successRate(score) {
   if (score < 60) {
     return 'Yüksek Risk';
   } else if (score >= 60 && score < 80) {
@@ -11,10 +8,7 @@ function successRate(PS, SS, ES) {
   }
 }
 
-function preferOrder(field, job, PS, SS, ES) {
-  let year = new Date().getFullYear();
-  let score = PS * 0.4 + SS * 0.5 - Number(year - ES) * 0.1;
-
+function preferOrder(field, job, score) {
   if (field === 'Üretim' && job === 'Takım Lideri') {
     return 2;
   } else if (score < 60) {
