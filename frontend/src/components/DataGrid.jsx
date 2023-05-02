@@ -9,7 +9,6 @@ import { FaSyncAlt, FaPaperPlane } from 'react-icons/fa';
 import { enDat } from '../helpers/data';
 
 export default function DataGrid() {
-  const [isLoading, setLoading] = useState(false);
   const {
     typeformData,
     setTypeFormData,
@@ -18,6 +17,10 @@ export default function DataGrid() {
     user,
     dat,
     setDat,
+    selectedEntry,
+    setSelectedEntry,
+    isLoading,
+    setLoading,
   } = useContext(MainContext);
 
   useEffect(() => {
@@ -46,8 +49,8 @@ export default function DataGrid() {
     );
   }
 
-  console.log(dat);
-  console.log(formattedData);
+  // console.log(dat);
+  // console.log(formattedData);
 
   // useEffect(() => {
   //   enDat
@@ -118,7 +121,10 @@ export default function DataGrid() {
   //   });
   // }, [isLoading]); //eslint-disable-line
 
-  function openModal() {
+  function openModal(id) {
+    setSelectedEntry({
+      ...formattedData.filter((item) => item.id === id)[0],
+    });
     document.querySelector('#edit-modal').classList.remove('hidden');
   }
 
@@ -142,7 +148,7 @@ export default function DataGrid() {
         <Table.Cell>
           <FcSearch
             className="cursor-pointer hover:scale-125"
-            onClick={openModal}
+            onClick={() => openModal(entry.id)}
           />
         </Table.Cell>
       </Table.Row>

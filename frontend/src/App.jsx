@@ -15,6 +15,8 @@ function App() {
   const [typeformData, setTypeFormData] = useState([]);
   const [formattedData, setFormattedData] = useState([]);
   const [dat, setDat] = useState([]);
+  const [selectedEntry, setSelectedEntry] = useState({});
+  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
     if (!user) {
@@ -37,6 +39,10 @@ function App() {
     setFormattedData,
     dat,
     setDat,
+    selectedEntry,
+    setSelectedEntry,
+    isLoading,
+    setLoading,
   };
 
   return (
