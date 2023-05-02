@@ -14,6 +14,7 @@ function App() {
   const [user, setUser] = useState(JSON.parse(sessionStorage.getItem('user')));
   const [typeformData, setTypeFormData] = useState([]);
   const [formattedData, setFormattedData] = useState([]);
+  const [dat, setDat] = useState([]);
 
   useEffect(() => {
     if (!user) {
@@ -34,6 +35,8 @@ function App() {
     setTypeFormData,
     formattedData,
     setFormattedData,
+    dat,
+    setDat,
   };
 
   return (

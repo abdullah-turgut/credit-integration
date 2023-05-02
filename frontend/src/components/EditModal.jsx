@@ -14,7 +14,7 @@ export default function EditModal() {
   }
   return (
     <div
-      className="fixed flex justify-center items-center top-0 left-0 bg-black/80 h-screen w-screen z-50"
+      className="hidden fixed flex justify-center items-center top-0 left-0 bg-black/80 h-screen w-screen z-50"
       id="edit-modal"
     >
       <form

@@ -16,10 +16,12 @@ export default function DataGrid() {
     formattedData,
     setFormattedData,
     user,
+    dat,
+    setDat,
   } = useContext(MainContext);
-  const [dat, setDat] = useState([]);
 
   useEffect(() => {
+    setDat((preval) => []);
     axios
       .get('http://localhost:1337/api/entries?sort=entry_id', {
         headers: {
@@ -28,13 +30,24 @@ export default function DataGrid() {
         },
       })
       .then((res) => {
-        res.data.data.map((item) =>
-          setDat((preVal) => [...preVal, { ...item.attributes, id: item.id }])
-        );
-      });
-  }, []);
+        res.data.data.map((item) => {
+          setDat((preVal) => [...preVal, { ...item.attributes, id: item.id }]);
+        });
+      })
+      .then((res) => setFormattedData(formatData(dat)))
+      .then((res) => setLoading(true));
+  }, [isLoading]);
 
-  console.log(formatData(dat));
+  if (!isLoading) {
+    return (
+      <div className="absolute top-1/2 left-1/2">
+        <Spinner color="purple" aria-label="Info spinner example" size="xl" />
+      </div>
+    );
+  }
+
+  console.log(dat);
+  console.log(formattedData);
 
   // useEffect(() => {
   //   enDat
@@ -78,24 +91,24 @@ export default function DataGrid() {
   //     });
   // }, []);
 
-  useEffect(() => {
-    axios
-      .get('http://localhost:1337/api/infos', {
-        headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjgyNzczNTM0LCJleHAiOjE2ODUzNjU1MzR9.8XvpY1iNJXCwCB4-UTzgdjOL8av4i8aEWeiqzqz0GzU`,
-        },
-      })
-      .then((res) => {
-        let data = res.data.data.map((item) => item.attributes.data);
-        let x = [];
-        for (let i = 0; i < data.length; i++) {
-          x.push(...data[i]);
-        }
-        setTypeFormData(x);
-        setFormattedData(formatData(dat));
-        setLoading(true);
-      });
-  }, [isLoading]);
+  // useEffect(() => {
+  //   axios
+  //     .get('http://localhost:1337/api/infos', {
+  //       headers: {
+  //         Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjgyNzczNTM0LCJleHAiOjE2ODUzNjU1MzR9.8XvpY1iNJXCwCB4-UTzgdjOL8av4i8aEWeiqzqz0GzU`,
+  //       },
+  //     })
+  //     .then((res) => {
+  //       let data = res.data.data.map((item) => item.attributes.data);
+  //       let x = [];
+  //       for (let i = 0; i < data.length; i++) {
+  //         x.push(...data[i]);
+  //       }
+  //       setTypeFormData(x);
+  //       setFormattedData(formatData(dat));
+  //       setLoading(true);
+  //     });
+  // }, [isLoading]);
 
   // useEffect(() => {
   //   axios.get('http://localhost:9000/api/responses').then((res) => {
@@ -147,14 +160,6 @@ export default function DataGrid() {
         .then((res) => console.log(res.data))
         .catch((err) => console.log(err));
     });
-  }
-
-  if (!isLoading) {
-    return (
-      <div className="absolute top-1/2 left-1/2">
-        <Spinner color="purple" aria-label="Info spinner example" size="xl" />
-      </div>
-    );
   }
 
   return (
