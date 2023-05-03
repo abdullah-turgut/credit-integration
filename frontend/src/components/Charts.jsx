@@ -150,7 +150,7 @@ export default function Charts() {
                     (ent) => ent.startYear < 2015 || ent.education === 'Lise'
                   ).length,
                 ],
-                backgroundColor: ['#5ad45a', '#e60049'],
+                backgroundColor: ['#5ad45a', '#b30000'],
               },
             ],
           };
