@@ -162,7 +162,7 @@ export default function Charts() {
   console.log(yearData);
 
   return (
-    <div className="flex h-screen justify-between gap-x-40 px-20 pt-20 w-full flex-wrap">
+    <div className="flex h-screen justify-between gap-x-20 gap-y-5 px-40 pt-10 w-full flex-wrap">
       {load ? (
         <div className="flex flex-col w-1/4 gap-y-4">
           <Pie data={sexData} className="w-1/2" />
@@ -172,7 +172,7 @@ export default function Charts() {
         </div>
       ) : null}
       {load ? (
-        <div className="flex flex-col w-1/2 gap-y-4">
+        <div className="flex flex-col w-2/4 gap-y-4">
           <Line data={yearData} options={options} />
           <p className="font-semibold text-center">
             Başvuranların işe başlama tarihlerine göre dağılımı
@@ -180,7 +180,7 @@ export default function Charts() {
         </div>
       ) : null}
       {load ? (
-        <div className="flex flex-col w-1/3 gap-y-4">
+        <div className="flex flex-col w-1/4 gap-y-4">
           <PolarArea data={educationData} />
           <p className="font-semibold text-center">
             Başvuranların eğitim düzeyine göre dağılımı
