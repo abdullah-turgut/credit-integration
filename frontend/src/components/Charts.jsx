@@ -5,13 +5,15 @@ import {
   ArcElement,
   CategoryScale,
   LinearScale,
+  BarElement,
   PointElement,
   LineElement,
   Title,
   Tooltip,
   Legend,
+  RadialLinearScale,
 } from 'chart.js';
-import { Pie, Line } from 'react-chartjs-2';
+import { Pie, Line, PolarArea, Bar } from 'react-chartjs-2';
 import axios from 'axios';
 
 ChartJS.register(
@@ -20,37 +22,12 @@ ChartJS.register(
   LinearScale,
   PointElement,
   LineElement,
+  RadialLinearScale,
+  BarElement,
   Title,
   Tooltip,
   Legend
 );
-
-export const data = {
-  labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-  datasets: [
-    {
-      label: '# of Votes',
-      data: [12, 19, 3, 5, 2, 3],
-      backgroundColor: [
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(255, 206, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(255, 159, 64, 0.2)',
-      ],
-      borderColor: [
-        'rgba(255, 99, 132, 1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(255, 159, 64, 1)',
-      ],
-      borderWidth: 1,
-    },
-  ],
-};
 
 export const options = {
   responsive: true,
@@ -67,6 +44,8 @@ export default function Charts() {
   const { dat, setDat } = useContext(MainContext);
   const [sexData, setSexData] = useState([]);
   const [yearData, setYearData] = useState([]);
+  const [educationData, setEducationData] = useState([]);
+  const [approvalData, setApprovalData] = useState([]);
   const [load, setLoad] = useState(false);
 
   useEffect(() => {
@@ -120,16 +99,73 @@ export default function Charts() {
           };
         })
       )
+      .then((res) =>
+        setEducationData((preVal) => {
+          return {
+            labels: [
+              'Doktora',
+              'Lisans - 4 Yıllık Üniversite',
+              'Yüksek Lisans',
+              'Ön Lisans - 2 Yıllık Üniversite',
+              'Lise',
+            ],
+            datasets: [
+              {
+                label: 'Sayı',
+                data: [
+                  dat.filter((ent) => ent.education === 'Doktora').length,
+                  dat.filter(
+                    (ent) => ent.education === 'Lisans - 4 Yıllık Üniversite'
+                  ).length,
+                  dat.filter((ent) => ent.education === 'Yüksek Lisans').length,
+                  dat.filter(
+                    (ent) => ent.education === 'Ön Lisans - 2 Yıllık Üniversite'
+                  ).length,
+                  dat.filter((ent) => ent.education === 'Lise').length,
+                ],
+                backgroundColor: [
+                  '#fd7f6f',
+                  '#7eb0d5',
+                  '#b2e061',
+                  '#beb9db',
+                  '#ffb55a',
+                ],
+              },
+            ],
+          };
+        })
+      )
+      .then((res) =>
+        setApprovalData((preVal) => {
+          return {
+            labels: ['Olumlu', 'Olumsuz'],
+            datasets: [
+              {
+                label: 'Sayı',
+                data: [
+                  dat.filter(
+                    (ent) => ent.startYear >= 2015 && ent.education !== 'Lise'
+                  ).length,
+                  dat.filter(
+                    (ent) => ent.startYear < 2015 || ent.education === 'Lise'
+                  ).length,
+                ],
+                backgroundColor: ['#5ad45a', '#e60049'],
+              },
+            ],
+          };
+        })
+      )
       .then((res) => setLoad(true));
   }, [load]);
 
   console.log(yearData);
 
   return (
-    <div className="flex h-screen justify-between px-20 pt-20">
+    <div className="flex h-screen justify-between gap-x-40 px-20 pt-20 w-full flex-wrap">
       {load ? (
         <div className="flex flex-col w-1/4 gap-y-4">
-          <Pie data={sexData} />
+          <Pie data={sexData} className="w-1/2" />
           <p className="font-semibold text-center">
             Başvuranların cinsiyete göre dağılımı
           </p>
@@ -140,6 +176,22 @@ export default function Charts() {
           <Line data={yearData} options={options} />
           <p className="font-semibold text-center">
             Başvuranların işe başlama tarihlerine göre dağılımı
+          </p>
+        </div>
+      ) : null}
+      {load ? (
+        <div className="flex flex-col w-1/3 gap-y-4">
+          <PolarArea data={educationData} />
+          <p className="font-semibold text-center">
+            Başvuranların eğitim düzeyine göre dağılımı
+          </p>
+        </div>
+      ) : null}
+      {load ? (
+        <div className="flex flex-col w-1/2 gap-y-4">
+          <Bar data={approvalData} />
+          <p className="font-semibold text-center">
+            Başvuranların onay durumlarına göre dağılımı
           </p>
         </div>
       ) : null}
