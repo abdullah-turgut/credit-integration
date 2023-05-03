@@ -52,7 +52,6 @@ export default function LoginForm() {
           })
       );
   };
-  console.log(errors);
 
   return (
     <form

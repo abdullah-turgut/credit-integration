@@ -11,8 +11,7 @@ export default function EditModal() {
     axios
       .get('http://localhost:1337/api/entries/' + selectedEntry.id, {
         headers: {
-          Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjgyNzczNTM0LCJleHAiOjE2ODUzNjU1MzR9.8XvpY1iNJXCwCB4-UTzgdjOL8av4i8aEWeiqzqz0GzU',
+          Authorization: `Bearer ${sessionStorage.getItem('token')}`,
         },
       })
       .then((res) => setFormData(res.data.data.attributes));
@@ -32,8 +31,7 @@ export default function EditModal() {
 
         {
           headers: {
-            Authorization:
-              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjgyNzczNTM0LCJleHAiOjE2ODUzNjU1MzR9.8XvpY1iNJXCwCB4-UTzgdjOL8av4i8aEWeiqzqz0GzU',
+            Authorization: `Bearer ${sessionStorage.getItem('token')}`,
           },
         }
       )
